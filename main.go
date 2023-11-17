@@ -23,7 +23,14 @@ func main() {
 			airport_code := result[0:4]
 			metar_time := result[7:12]
 			wind := strings.Split(result[(strings.Index(result[4:], "KT")-4):(strings.Index(result[4:], "KT")+6)], " ")[len(strings.Split(result[(strings.Index(result[4:], "KT")-4):(strings.Index(result[4:], "KT")+6)], " "))-1]
-			vis := result[strings.Index(result[4:], "KT")+7 : strings.Index(result[4:], "KT")+11]
+			var vis string
+			//fmt.Println(result)
+			//fmt.Println(result[(strings.Index(result[4:], "KT") + 10) : (strings.Index(result[4:], "KT")+10)+1])
+			if result[(strings.Index(result[4:], "KT")+10):(strings.Index(result[4:], "KT")+10)+1] != "V" {
+				vis = result[strings.Index(result[4:], "KT")+7 : strings.Index(result[4:], "KT")+11]
+			} else {
+				vis = result[strings.Index(result[4:], "KT")+7+8 : strings.Index(result[4:], "KT")+11+8]
+			}
 			qnh := result[strings.Index(result[4:], "Q")+5 : strings.Index(result[4:], "Q")+9]
 			alt_f, _ := strconv.ParseFloat(qnh, 64)
 			alt_f = alt_f / 0.3386
