@@ -114,6 +114,8 @@ func imcvmc(splited []string) string {
 	}
 }
 
+var airport_list = make(map[string]string)
+
 func main() {
 	argv := os.Args
 	argc := len(argv)
@@ -121,11 +123,15 @@ func main() {
 		fmt.Fprintln(os.Stderr, "usage -> wx RJTT RJFF ...")
 		os.Exit(1)
 	}
+	Init_airport_list()
 	for {
 		for i := 0; i < argc-1; i++ {
 			metar := get_metar(argv[i+1])
 			//fmt.Println("\n" + metar)
 			splited := strings.Split(metar, " ")
+			if len(splited) < 2 {
+				continue
+			}
 			airport_code := splited[0]
 			metar_time := splited[1]
 			wind := find_wind(splited)
@@ -134,8 +140,9 @@ func main() {
 			tmp := find_temp(splited)
 			alt := find_alt(splited)
 			cond := imcvmc(splited)
-			fmt.Printf("%s %s %s\t%s %s %s/%s %s\n",
-				airport_code, metar_time, wind, vis, tmp, qnh, alt, cond)
+			rwys := airport_list[airport_code]
+			fmt.Printf("%s %s %s\t%s %s %s/%s %s %s\n",
+				airport_code, metar_time, wind, vis, tmp, qnh, alt, cond, rwys)
 		}
 		time.Sleep(5 * time.Minute)
 		fmt.Print("\033[" + strconv.Itoa(argc-1) + "A")
