@@ -140,9 +140,9 @@ func main() {
 			tmp := find_temp(splited)
 			alt := find_alt(splited)
 			cond := imcvmc(splited)
-			rwys := airport_list[airport_code]
+			//rwys := airport_list[airport_code]
 			fmt.Printf("%s %s %s\t%s %s %s/%s %s %s\n",
-				airport_code, metar_time, wind, vis, tmp, qnh, alt, cond, rwys)
+				airport_code, metar_time, wind, vis, tmp, qnh, alt, cond)
 		}
 		time.Sleep(5 * time.Minute)
 		fmt.Print("\033[" + strconv.Itoa(argc-1) + "A")
