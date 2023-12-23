@@ -134,7 +134,6 @@ func main() {
 			tmp := find_temp(splited)
 			alt := find_alt(splited)
 			cond := imcvmc(splited)
-			is_imc(splited)
 			fmt.Printf("%s %s %s\t%s %s %s/%s %s\n",
 				airport_code, metar_time, wind, vis, tmp, qnh, alt, cond)
 		}
